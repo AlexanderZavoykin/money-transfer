@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    application
     kotlin("jvm") version "1.7.21"
     id("org.flywaydb.flyway") version "9.8.1"
     id("nu.studer.jooq") version "7.1.1"
@@ -59,13 +60,14 @@ allprojects {
     }
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
+
+application {
+    mainClass.set("practice.money.transfer.Application")
+}
+
 
 val dbUrl: String by project
 val dbUser: String by project

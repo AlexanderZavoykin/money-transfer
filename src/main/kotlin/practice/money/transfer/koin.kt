@@ -3,6 +3,7 @@ package practice.money.transfer
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import org.flywaydb.core.Flyway
 import org.jooq.DSLContext
 import org.jooq.SQLDialect
 import org.jooq.impl.DSL
@@ -10,7 +11,9 @@ import org.jooq.impl.DefaultConfiguration
 import org.jooq.impl.DefaultTransactionProvider
 import org.koin.dsl.module
 import practice.money.transfer.config.ApplicationConfig
+import practice.money.transfer.config.DbConfig
 import practice.money.transfer.config.IConfig
+import practice.money.transfer.config.toFlywayConfig
 import practice.money.transfer.config.toHikariConfig
 import practice.money.transfer.dao.AccountDao
 import practice.money.transfer.dao.TransactionManager
@@ -26,9 +29,13 @@ import practice.money.transfer.service.TransferService
 val appConfig = IConfig.load<ApplicationConfig>()
 
 val persistenceModule = module {
-    val dslContext = dslContext()
+    val dbConfig = appConfig.db
+    val dslContext = dslContext(dbConfig)
     single { AccountDao(dslContext) }
     single { TransactionManager(dslContext) }
+
+    val flywayConfig = dbConfig.toFlywayConfig()
+    single { Flyway(flywayConfig) }
 }
 
 val serviceModule = module {
@@ -46,8 +53,8 @@ val serverModule = module {
     single { server }
 }
 
-private fun dslContext(): DSLContext {
-    val hikariConfig = appConfig.db.toHikariConfig()
+private fun dslContext(dbConfig: DbConfig): DSLContext {
+    val hikariConfig = dbConfig.toHikariConfig()
     val hikariDataSource = HikariDataSource(hikariConfig)
 
     val jooqConfig = DefaultConfiguration().apply {
