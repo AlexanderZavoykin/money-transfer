@@ -17,8 +17,18 @@ Run PostgresSQL Docker container by command:
 docker-compose up -d
 ~~~~
 
-Then build and run application by command:
+Build and run application by command:
 ~~~~
 ./gradlew clean build run
 ~~~~
 
+Make requests such as:
+~~~~
+curl --location --request GET 'http://localhost:8080/account'
+~~~~
+or
+~~~~
+curl --location --request POST 'http://localhost:8080/account' \
+--header 'Content-Type: application/json' \
+--data-raw '{"id": "555111","balance": 100,"limit": 22200}'
+~~~~

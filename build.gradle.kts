@@ -40,6 +40,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.5")
 
     testImplementation(kotlin("test"))
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
 }
 
 allprojects {
@@ -58,6 +59,10 @@ allprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     }
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 tasks.withType<KotlinCompile> {

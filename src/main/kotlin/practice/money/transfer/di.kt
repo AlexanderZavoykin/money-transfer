@@ -16,6 +16,7 @@ import practice.money.transfer.config.IConfig
 import practice.money.transfer.config.toFlywayConfig
 import practice.money.transfer.config.toHikariConfig
 import practice.money.transfer.dao.AccountDao
+import practice.money.transfer.dao.JooqAccountDao
 import practice.money.transfer.dao.TransactionManager
 import practice.money.transfer.server.configureErrorHandling
 import practice.money.transfer.server.configureRoutings
@@ -26,13 +27,15 @@ import practice.money.transfer.service.DbAccountService
 import practice.money.transfer.service.DbTransferService
 import practice.money.transfer.service.TransferService
 
-val appConfig = IConfig.load<ApplicationConfig>()
+
 
 val persistenceModule = module {
+    val appConfig = IConfig.load<ApplicationConfig>()
     val dbConfig = appConfig.db
-    val dslContext = dslContext(dbConfig)
-    single { AccountDao(dslContext) }
-    single { TransactionManager(dslContext) }
+
+    single { dslContext(dbConfig) }
+    single<AccountDao> { JooqAccountDao(get()) }
+    single { TransactionManager(get()) }
 
     val flywayConfig = dbConfig.toFlywayConfig()
     single { Flyway(flywayConfig) }

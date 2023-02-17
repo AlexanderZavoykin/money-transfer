@@ -9,7 +9,13 @@ object Application {
 
     @JvmStatic
     fun main(args : Array<String>) {
-        startKoin { modules(persistenceModule, serviceModule, serverModule) }
+        startKoin {
+            modules(
+                persistenceModule,
+                serviceModule,
+                serverModule,
+            )
+        }
 
         val flyway: Flyway by inject(Flyway::class.java)
         flyway.migrate()
