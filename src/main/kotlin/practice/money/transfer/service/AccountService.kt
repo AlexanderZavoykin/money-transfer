@@ -1,5 +1,6 @@
-package practice.money.transfer
+package practice.money.transfer.service
 
+import practice.money.transfer.dto.AccountInfo
 import java.math.BigDecimal
 
 interface AccountService {
@@ -12,6 +13,6 @@ interface AccountService {
 
     fun close(accountId: String): AccountInfo
 
-    fun updateLimit(accountId: String, limit: BigDecimal): Boolean
+    fun updateLimit(accountId: String, limit: BigDecimal): AccountInfo
 
 }

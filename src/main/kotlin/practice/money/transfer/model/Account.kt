@@ -1,8 +1,8 @@
-package practice.money.transfer
+package practice.money.transfer.model
 
 import java.math.BigDecimal
 
-class Account(
+data class Account(
     val id: String,
     val balance: BigDecimal = BigDecimal.ZERO,
     val limit: BigDecimal? = null,
