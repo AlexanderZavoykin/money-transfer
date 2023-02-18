@@ -27,8 +27,6 @@ import practice.money.transfer.service.DbAccountService
 import practice.money.transfer.service.DbTransferService
 import practice.money.transfer.service.TransferService
 
-
-
 val persistenceModule = module {
     val appConfig = IConfig.load<ApplicationConfig>()
     val dbConfig = appConfig.db
