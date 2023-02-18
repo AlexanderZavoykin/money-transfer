@@ -12,9 +12,15 @@ repositories {
     mavenCentral()
 }
 
+java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11
+
 val jooqVersion: String by project
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
     implementation("io.insert-koin:koin-core:3.3.3")
 
     val ktorVersion: String by project
@@ -41,24 +47,6 @@ dependencies {
 
     testImplementation(kotlin("test"))
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
-}
-
-allprojects {
-    apply {
-        plugin("org.jetbrains.kotlin.jvm")
-    }
-
-    java.sourceCompatibility = JavaVersion.VERSION_11
-    java.targetCompatibility = JavaVersion.VERSION_11
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-reflect")
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    }
 }
 
 tasks.test {
