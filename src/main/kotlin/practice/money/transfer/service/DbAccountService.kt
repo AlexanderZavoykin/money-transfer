@@ -4,7 +4,8 @@ import practice.money.transfer.dao.AccountDao
 import practice.money.transfer.dao.TransactionManager
 import practice.money.transfer.dto.AccountInfo
 import practice.money.transfer.exception.NoSuchAccountException
-import practice.money.transfer.model.Account
+import practice.money.transfer.toAccount
+import practice.money.transfer.toInfo
 import java.math.BigDecimal
 
 class DbAccountService(
@@ -33,9 +34,5 @@ class DbAccountService(
             .transaction { dao.updateLimit(accountId, limit) }
             ?.toInfo()
             ?: throw NoSuchAccountException.notFoundById(accountId)
-
-    private fun Account.toInfo(): AccountInfo = AccountInfo(id = id, balance = balance, limit = limit)
-
-    private fun AccountInfo.toAccount(): Account = Account(id = id, balance = balance, limit = limit)
 
 }

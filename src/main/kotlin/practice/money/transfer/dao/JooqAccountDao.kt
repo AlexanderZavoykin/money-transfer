@@ -2,7 +2,6 @@ package practice.money.transfer.dao
 
 import org.jooq.DSLContext
 import practice.money.transfer.model.Account
-import practice.money.transfer.persistence.keys.ACCOUNT_PKEY
 import practice.money.transfer.persistence.tables.references.ACCOUNT
 import java.math.BigDecimal
 
@@ -27,8 +26,6 @@ class JooqAccountDao(
         dslContext
             .insertInto(ACCOUNT, ACCOUNT.ID, ACCOUNT.BALANCE, ACCOUNT.LIMIT)
             .values(account.id, account.balance, account.limit)
-            .onConflictOnConstraint(ACCOUNT_PKEY)
-            .doNothing()
             .execute()
 
     override fun updateLimit(accountId: String, limit: BigDecimal): Account? =

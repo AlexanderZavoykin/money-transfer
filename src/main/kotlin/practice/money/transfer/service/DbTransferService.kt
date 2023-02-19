@@ -11,12 +11,16 @@ class DbTransferService(
 
     override fun deposit(accountId: String, amount: BigDecimal) {
         checkAmount(amount)
-        updateBalance(accountId, amount)
+        txManager.transaction {
+            updateBalance(accountId, amount)
+        }
     }
 
     override fun withdraw(accountId: String, amount: BigDecimal) {
         checkAmount(amount)
-        updateBalance(accountId, amount.negate())
+        txManager.transaction {
+            updateBalance(accountId, amount.negate())
+        }
     }
 
     override fun transfer(fromId: String, toId: String, amount: BigDecimal) {
@@ -32,7 +36,8 @@ class DbTransferService(
     }
 
     private fun updateBalance(accountId: String, amount: BigDecimal) {
-        txManager.transaction { dao.updateBalanceByAmount(accountId, amount) }
+        dao.updateBalanceByAmount(accountId, amount)
     }
+
 
 }

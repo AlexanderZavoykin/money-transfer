@@ -21,7 +21,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    implementation("io.insert-koin:koin-core:3.3.3")
+    val koinVersion: String by project
+    implementation("io.insert-koin:koin-core:$koinVersion")
 
     val ktorVersion: String by project
     implementation("io.ktor:ktor-server-core:$ktorVersion")
@@ -45,7 +46,8 @@ dependencies {
 
     implementation("ch.qos.logback:logback-classic:1.4.5")
 
-    testImplementation(kotlin("test"))
+    testImplementation("io.insert-koin:koin-test:$koinVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
 }
 

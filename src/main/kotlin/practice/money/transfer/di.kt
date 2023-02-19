@@ -8,7 +8,7 @@ import org.jooq.DSLContext
 import org.jooq.SQLDialect
 import org.jooq.impl.DSL
 import org.jooq.impl.DefaultConfiguration
-import org.jooq.impl.DefaultTransactionProvider
+import org.jooq.impl.ThreadLocalTransactionProvider
 import org.koin.dsl.module
 import practice.money.transfer.config.ApplicationConfig
 import practice.money.transfer.config.DbConfig
@@ -61,7 +61,7 @@ private fun dslContext(dbConfig: DbConfig): DSLContext {
     val jooqConfig = DefaultConfiguration().apply {
         setDataSource(hikariDataSource)
         setSQLDialect(SQLDialect.POSTGRES)
-        setTransactionProvider(DefaultTransactionProvider(this.connectionProvider()))
+        setTransactionProvider(ThreadLocalTransactionProvider(this.connectionProvider()))
     }
 
     return DSL.using(jooqConfig)
