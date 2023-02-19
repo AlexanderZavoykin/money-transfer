@@ -1,18 +1,16 @@
 package practice.money.transfer.service
 
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.koin.java.KoinJavaComponent.inject
-import org.koin.test.KoinTest
+import practice.money.transfer.AbstractKoinTest
 import practice.money.transfer.accountInfoOf
 import practice.money.transfer.assertMathematicallyEquals
 import practice.money.transfer.exception.ForbiddenOperationException
-import practice.money.transfer.startKoinTest
 import java.math.BigDecimal
 
-class TransferServiceTest : KoinTest {
+class TransferServiceTest : AbstractKoinTest() {
 
     private val accountService: AccountService by inject(AccountService::class.java)
     private val transferService: TransferService by inject(TransferService::class.java)
@@ -126,14 +124,6 @@ class TransferServiceTest : KoinTest {
 
         assertMathematicallyEquals(accountInfo1.balance, accountService.get(accountInfo1.id).balance)
         assertMathematicallyEquals(accountInfo2.balance, accountService.get(accountInfo2.id).balance)
-    }
-
-    companion object {
-        @JvmStatic
-        @BeforeAll
-        fun startKoin() {
-            startKoinTest()
-        }
     }
 
 }

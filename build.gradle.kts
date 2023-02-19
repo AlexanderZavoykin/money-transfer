@@ -47,6 +47,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.5")
 
     testImplementation("io.insert-koin:koin-test:$koinVersion")
+    testImplementation("io.insert-koin:koin-test-junit5:$koinVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
 }
