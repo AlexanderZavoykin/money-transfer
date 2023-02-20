@@ -2,6 +2,7 @@ package practice.money.transfer.server
 
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.openapi.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -16,6 +17,8 @@ val transferService: TransferService by KoinJavaComponent.inject(TransferService
 fun Application.configureRoutings() {
 
     routing {
+        openAPI(path="openapi", swaggerFile = "openapi/documentation.yaml")
+
         route("/account") {
             get("/{accountId}") {
                 val accountId = call.parameters["accountId"]!!

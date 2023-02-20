@@ -31,6 +31,7 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-server-request-validation:$ktorVersion")
     implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+    implementation("io.ktor:ktor-server-openapi:$ktorVersion")
 
     implementation("com.sksamuel.hoplite:hoplite-core:2.7.1")
     runtimeOnly("com.sksamuel.hoplite:hoplite-yaml:2.7.1")

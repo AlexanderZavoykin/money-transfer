@@ -1,0 +1,140 @@
+openapi: "3.0.3"
+info:
+  title: "money_transfer API"
+  description: "money_transfer API"
+  version: "1.0.0"
+servers:
+- url: "https://money_transfer"
+paths:
+  /account:
+    delete:
+      description: ""
+      parameters:
+      - name: "accountId"
+        in: "query"
+        required: false
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AccountInfo"
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/AccountInfo"
+    post:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AccountInfo"
+        "409":
+          description: "Conflict"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "Forbidden operation"
+  /account/{accountId}:
+    get:
+      description: ""
+      parameters:
+      - name: "accountId"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AccountInfo"
+    patch:
+      description: ""
+      parameters:
+      - name: "accountId"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AccountInfo"
+  /account/{accountId}/deposit:
+    post:
+      description: ""
+      parameters:
+      - name: "accountId"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+  /account/{accountId}/withdraw:
+    post:
+      description: ""
+      parameters:
+      - name: "accountId"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+  /transfer:
+    post:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+components:
+  schemas:
+    BigDecimal:
+      type: "object"
+      properties: {}
+    AccountInfo:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        balance:
+          $ref: "#/components/schemas/BigDecimal"
+        limit:
+          $ref: "#/components/schemas/BigDecimal"

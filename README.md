@@ -32,3 +32,5 @@ curl --location --request POST 'http://localhost:8080/account' \
 --header 'Content-Type: application/json' \
 --data-raw '{"id": "555111","balance": 100,"limit": 22200}'
 ~~~~
+
+The entire API description is available on http://localhost:8080/openapi
